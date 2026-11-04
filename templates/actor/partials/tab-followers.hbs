@@ -874,6 +874,16 @@
 			</div>
 			{{/if}}
 
+			{{!-- Add a named member straight away, rather than growing the anonymous tail and
+			      then naming one of its bodies. --}}
+			{{#if edit.individuals}}
+			<div class="stonetop-crew-roster-actions">
+				<button type="button" class="stonetop-crew-add-individual stonetop-inline-btn" title="Add a named member to the crew">
+					<i class="fas fa-user-plus"></i> Add member
+				</button>
+			</div>
+			{{/if}}
+
 			{{!-- Named individuals --}}
 			{{#if individuals.length}}
 			<div class="stonetop-crew-individuals">
@@ -891,6 +901,10 @@
 							<span class="stonetop-hp-max">{{this.hpMax}}</span>
 						</span>
 						{{#if ../edit.individuals}}
+						<button type="button" class="stonetop-crew-edit-individual stonetop-inline-btn"
+						        data-index="{{this.index}}" title="Edit this member's name, tag and traits">
+							<i class="fas fa-pen"></i>
+						</button>
 						<button type="button" class="stonetop-crew-delete-individual stonetop-inline-btn stonetop-inline-btn--danger"
 						        data-index="{{this.index}}" title="Remove">
 							<i class="fas fa-times"></i>

@@ -5880,10 +5880,16 @@ export function createStonetopCharacterSheetClass(Base) {
 				persist:       collapsed => setSidebarCollapsed(this.actor?.id, collapsed),
 			});
 
-			// Name an (anonymous) crew member: promote them to a named individual,
-			// carrying their current HP across. Opened from each member's "Name them"
-			// button in edit mode, which targets that specific roster slot.
-			const openNameMemberDialog = async (anonIndex) => {
+			// Name a crew member. From an anonymous member's "Name them" button
+			// (`anonIndex`) it promotes that roster slot to a named individual, carrying
+			// their current HP across. From a named member's pencil (`individualIndex`)
+			// it edits that individual in place; from the Roster's "Add member" (neither)
+			// it appends a new named individual.
+			const openNameMemberDialog = async (anonIndex = null, individualIndex = null) => {
+				const editingIndividual = Number.isInteger(individualIndex);
+				const existing = editingIndividual
+					? (this.actor.getFlag(STONETOP_SCOPE, "crew.individuals") ?? [])[individualIndex] ?? null
+					: null;
 				// Fall back to the shared crew suggestion lists (module/data/steading-members.js)
 				// when the playbook pack doesn't carry its own crew.individualOptions.
 				// The Crew insert's own lists, the Marshal's or the one a learned Crew borrows (crewSource).
@@ -5918,8 +5924,8 @@ export function createStonetopCharacterSheetClass(Base) {
 				// Slash-option slots are free-type combos: the slash choices become
 				// <datalist> suggestions, but you can type anything (replacing the old
 				// "___ (type your own)" select option). traitIndex keeps datalist ids unique.
-				const buildChipInner = (tokens, safeVal, traitIndex) => {
-					let html    = `<input type="checkbox" class="stonetop-check" name="traits" value="${safeVal}">`;
+				const buildChipInner = (tokens, safeVal, traitIndex, checked = false) => {
+					let html    = `<input type="checkbox" class="stonetop-check" name="traits" value="${safeVal}"${checked ? " checked" : ""}>`;
 					let slotIdx = 0;
 					for (const tok of tokens) {
 						if (tok.type === "text") {
@@ -5942,34 +5948,49 @@ export function createStonetopCharacterSheetClass(Base) {
 					return html;
 				};
 
+				// A member being edited keeps every trait they already have. The insert's
+				// options are offered unchecked; traits that are not one of those options are
+				// added as checked chips carrying their stored text, because a concrete
+				// "missing hand" no longer matches the template "missing eye/finger/hand/__"
+				// and matching by pattern would silently drop what the member has.
+				const chosenTraits = new Set(editingIndividual
+					? (Array.isArray(existing?.traits) ? existing.traits.map(t => String(t)) : [])
+					: []);
 				const traitsHtml = traits.map((t, ti) => {
+					const checked = chosenTraits.has(t);
 					const safeVal = t.replace(/"/g, "&quot;");
 					const tokens  = tokenize(t);
 					const simple  = tokens.every(tok => tok.type === "text");
 					if (simple) {
-						return `<span class="stonetop-trait-chip-group">
+						return `<span class="stonetop-trait-chip-group${checked ? " is-selected" : ""}">
 							<label class="stonetop-individual-trait-chip">
-								<input type="checkbox" class="stonetop-check" name="traits" value="${safeVal}"> ${t}
+								<input type="checkbox" class="stonetop-check" name="traits" value="${safeVal}"${checked ? " checked" : ""}> ${t}
 							</label>
 						</span>`;
 					}
-					return `<span class="stonetop-trait-chip-group" data-trait="${safeVal}">
+					return `<span class="stonetop-trait-chip-group${checked ? " is-selected" : ""}" data-trait="${safeVal}">
 						<label class="stonetop-individual-trait-chip">
-							${buildChipInner(tokens, safeVal, ti)}
+							${buildChipInner(tokens, safeVal, ti, checked)}
 						</label>
 					</span>`;
-				}).join("");
+				}).join("") + [...chosenTraits]
+					.filter(t => !traits.includes(t))
+					.map(t => `<span class="stonetop-trait-chip-group is-selected">
+						<label class="stonetop-individual-trait-chip">
+							<input type="checkbox" class="stonetop-check" name="traits" value="${escHtml(t)}" checked> ${escHtml(t)}
+						</label>
+					</span>`).join("");
 
 				const content = `
 					<form class="stonetop-individual-form">
 						<div class="form-group">
 							<label>Name</label>
-							<input type="text" name="ind-name" list="ind-names" placeholder="Enter a name…">
+							<input type="text" name="ind-name" list="ind-names" placeholder="Enter a name…" value="${escHtml(existing?.name ?? "")}">
 							<datalist id="ind-names">${namesHtml}</datalist>
 						</div>
 						<div class="form-group">
 							<label>Tag</label>
-							<input type="text" name="ind-tag" list="ind-tags" placeholder="Choose or type a tag…" autocomplete="off">
+							<input type="text" name="ind-tag" list="ind-tags" placeholder="Choose or type a tag…" autocomplete="off" value="${escHtml(existing?.tag ?? "")}">
 							<datalist id="ind-tags">${tagsHtml}</datalist>
 						</div>
 						<div class="form-group stonetop-individual-traits-group">
@@ -5979,7 +6000,7 @@ export function createStonetopCharacterSheetClass(Base) {
 					</form>`;
 
 				new Dialog({
-					title:   "Name this Crew Member",
+					title:   editingIndividual ? "Edit Crew Member" : "Name this Crew Member",
 					content,
 					// One button, keyed `save`. NOT `add`: that key is in the global affirmative list
 					// (`.vtt .dialog .dialog-buttons [data-button="add"]`), which pushes its button to
@@ -5997,6 +6018,13 @@ export function createStonetopCharacterSheetClass(Base) {
 								const traits = [];
 								dlgHtml.find("[name='traits']:checked").each((_, cb) => {
 									const group  = cb.closest(".stonetop-trait-chip-group");
+									// A stored trait carried in as a plain checked chip has no
+									// template slots to fill: its value is already the finished
+									// trait, slashes and all, so take it as it stands.
+									if (!group?.querySelector(".stonetop-trait-fill, .stonetop-trait-select")) {
+										traits.push(cb.value);
+										return;
+									}
 									const tokens = tokenize(cb.value);
 									let slotIdx  = 0;
 									let result   = "";
@@ -6016,10 +6044,29 @@ export function createStonetopCharacterSheetClass(Base) {
 									}
 									traits.push(result);
 								});
+								const individuals   = [...(this.actor.getFlag(STONETOP_SCOPE, "crew.individuals") ?? [])];
+								// Editing a named individual: replace that row in place, keeping
+								// everything the dialog does not own — their face, above all.
+								if (editingIndividual) {
+									const current = individuals[individualIndex];
+									if (!current) return;
+									individuals[individualIndex] = { ...current, name, tag, traits };
+									await this.actor.update({ "flags.stonetop-pwd.crew.individuals": individuals });
+									this.render(false);
+									return;
+								}
+								// "Add member": a new named individual, appended without disturbing
+								// the anonymous tail (the effective size grows to hold them).
+								if (anonIndex == null) {
+									await this.actor.update({
+										"flags.stonetop-pwd.crew.individuals": [...individuals, { name, tag, traits }],
+									});
+									this.render(false);
+									return;
+								}
 								// Promote the targeted anonymous member: append the named
 								// individual, carry its current HP over, and drop it from
 								// the anonymous-member HP list.
-								const individuals   = [...(this.actor.getFlag(STONETOP_SCOPE, "crew.individuals") ?? [])];
 								const newIndex      = individuals.length;
 								const memberHp      = [...(this.actor.getFlag(STONETOP_SCOPE, "crew.memberHp") ?? [])];
 								const carriedHp     = memberHp[anonIndex];
@@ -6088,6 +6135,18 @@ export function createStonetopCharacterSheetClass(Base) {
 			};
 			html.find(".stonetop-crew-name-member").on("click", ev => {
 				openNameMemberDialog(Number(ev.currentTarget.dataset.index));
+			});
+			// The Roster's own "Add member": a named individual straight away.
+			html.find(".stonetop-crew-add-individual").on("click", ev => {
+				ev.preventDefault();
+				ev.stopPropagation();
+				openNameMemberDialog();
+			});
+			// A named member's pencil: edit their name, tag and traits in place.
+			html.find(".stonetop-crew-edit-individual").on("click", ev => {
+				ev.preventDefault();
+				ev.stopPropagation();
+				openNameMemberDialog(null, Number(ev.currentTarget.dataset.index));
 			});
 			html.find(".stonetop-inventory-reset-btn").on("click", this._onInventoryReset.bind(this));
 

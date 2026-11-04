@@ -138,6 +138,7 @@ import { debilityPath } from "./module/actors/steading/steading-debilities.js";
 import { readCurrentSeason, readCurrentYear } from "./module/seasons/current-season.js";
 import { wireSeasonsReminderResets } from "./module/seasons/seasons-change-reminders.js";
 import { onSteadingPeopleUpdate, repaintOpenSteadingRosters } from "./module/actors/steading/steading-people.js";
+import { onCrewRosterUpdate } from "./module/actors/character/crew-residents.js";
 import { makeDialogsResizable, enableAutoHeightVerticalResize } from "./module/utils/resizable-dialogs.js";
 import { registerStonetopWindowTheme, registerStonetopLightTheme } from "./module/utils/window-theme.js";
 import { registerOrphanedTooltipCleanup } from "./module/utils/tooltip-handoff.js";
@@ -1184,6 +1185,11 @@ Hooks.on("deleteActor", repaintOpenSteadingRosters);
 // GM's client, which turns it into a real NPC on the spot, so it never matters who made the
 // character. See steading-people.js#onSteadingPeopleUpdate.
 Hooks.on("updateActor", onSteadingPeopleUpdate);
+
+// A Marshal's crew roster names people of Stonetop: every named member gets a Person Actor
+// on the steading's Residents roster, linked back to the roster row. See
+// crew-residents.js#onCrewRosterUpdate.
+Hooks.on("updateActor", onCrewRosterUpdate);
 
 // -- RECOVER LOCK ----------------------------------------------
 // The Recover special move can't be used again until the character takes more

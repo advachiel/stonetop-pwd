@@ -75,6 +75,7 @@ import { fileGmPrepJournalsInChronicle } from "../journal/gm-prep-page.js";
 import { reconcileSitePins } from "../sites/site-scene-pins.js";
 import { isPrimaryGM } from "../utils/primary-gm.js";
 import { migrateAllSteadingPeople, ensurePeopleFolders, backfillAllResidentHomes } from "../actors/steading/steading-people.js";
+import { syncAllCrewResidents } from "../actors/character/crew-residents.js";
 import { PERSON_DEFAULT_IMG } from "../utils/person-portrait.js";
 import { NEW_SHOOT_MARKER, LEGACY_SHOOT_MARKERS } from "../data/follower-actor.js";
 import { isDefaultImg } from "../utils/strings.js";
@@ -398,6 +399,11 @@ export async function onReady() {
 		// (folder creation is a GM-only right; ensurePeopleFolder returns null for them).
 		try { await ensurePeopleFolders(); }
 		catch (err) { console.error("Stonetop | ensurePeopleFolders failed", err); }
+		// Give every named crew member a Person on the Residents roster, and link the roster
+		// row to them. Idempotent (the link makes a second run a no-op), so it sweeps on every
+		// load: crews named before this feature existed, or while no GM was connected, catch up.
+		try { await syncAllCrewResidents(); }
+		catch (err) { console.error("Stonetop | Crew → Residents sweep failed", err); }
 		// Same reason, for the relationship maps' folder: creating a Folder is a GM-only right,
 		// so a player making the first map would otherwise have nowhere to file it.
 		try { await ensureRelationshipMapFolder(); }

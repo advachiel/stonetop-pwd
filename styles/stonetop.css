@@ -29078,12 +29078,19 @@ details.stonetop-follower-details-fold.stonetop-crew-collapsible {
 	flex: 1 1 auto;
 }
 
+.stonetop-crew-individual-header .stonetop-crew-edit-individual,
 .stonetop-crew-individual-header .stonetop-crew-delete-individual {
 	flex: none;
 	width: 20px !important;
 	height: 20px !important;
 	padding: 0 !important;
 	justify-content: center;
+}
+
+/* The roster's own "Add member" row, sitting under the size stepper and above the names. */
+.stonetop-crew-roster-actions {
+	display: flex;
+	margin-bottom: 6px;
 }
 
 .stonetop-crew-individual-row {

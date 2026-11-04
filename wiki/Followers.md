@@ -60,10 +60,13 @@ Type how it shows if you like ("a strap snaps and the waterskin is gone"). The c
 A crew or group follower is one card for many people. Its card adds:
 
 - steppers to add or remove members, and **Name this member** to name each one;
+- **Add member** to name a new member straight away, and a pencil on each named member to edit their name, tag and traits;
 - shared HP, with a reset;
 - **Restock supplies** (a crew only).
 
 When members fall, they're struck off the roster (a group keeps at least two).
+
+Every named member of a Marshal's crew is also a person of Stonetop: the system makes a Person actor for them and lists it under **Residents of Stonetop** on the steading sheet. Renaming a member on the crew card renames their Person too.
 
 ## Away from the fight
 
