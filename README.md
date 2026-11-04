@@ -4,7 +4,7 @@ An unofficial [Foundry VTT](https://foundryvtt.com) system for playing [Stonetop
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V8L6287YU9)
 
-**📖 [Read the wiki](https://github.com/PrinceWitherdick/stonetop-pwd/wiki)** for a guide to every feature, for players and GMs, including the many that are easy to miss.
+**📖 [Read the wiki](https://github.com/advachiel/stonetop-pwd/wiki)** for a guide to every feature, for players and GMs, including the many that are easy to miss.
 
 ## 🤖 Created in collaboration with AI to facilitate rapid development. Absolutely no image generation was or will be used.
 
@@ -86,7 +86,7 @@ One **Browse Stonetop** window, on the magnifying-glass hotbar macro, answers "w
 In Foundry VTT, go to **Game Systems -> Install System** and paste this manifest URL:
 
 ```
-https://github.com/PrinceWitherdick/stonetop-pwd/releases/latest/download/system.json
+https://github.com/advachiel/stonetop-pwd/releases/latest/download/system.json
 ```
 
 That is all you need. Install it and start a world.
@@ -94,7 +94,7 @@ That is all you need. Install it and start a world.
 ### Already playing on the older release?
 
 If your world was created with the earlier version of this system, the one installed from
-`PrinceWitherdick/stonetop`, it is pointed at a package ID that has since changed and it
+`advachiel/stonetop`, it is pointed at a package ID that has since changed and it
 will not move across on its own. Install this system alongside the old one and follow
 [MIGRATION.md](MIGRATION.md); your world, its name, its folder and everything inside it
 stay exactly where they are. Nothing is copied and no world is recreated.

@@ -12,7 +12,7 @@ How to install the system, which optional modules make it better, and what each 
 In Foundry's setup screen, go to **Game Systems**, then **Install System**, and paste this manifest URL:
 
 ```
-https://github.com/PrinceWitherdick/stonetop-pwd/releases/latest/download/system.json
+https://github.com/advachiel/stonetop-pwd/releases/latest/download/system.json
 ```
 
 Create a world with the **Stonetop** system and launch it. The first time a GM loads the world, a **Setting up your world** window imports the journals, monsters and treasures in the background. See [Your First Session](Your-First-Session) for what happens next.
@@ -21,7 +21,7 @@ Updates arrive through Foundry's normal **Update** button on the Game Systems ta
 
 ### Already playing on the older release?
 
-If your world was created with the earlier version of this system, installed from `PrinceWitherdick/stonetop`, it is pointed at a package ID that has since changed and will not move across on its own. Install this system alongside the old one and follow [MIGRATION.md](https://github.com/PrinceWitherdick/stonetop-pwd/blob/main/MIGRATION.md). Your world, its name, its folder and everything inside it stay where they are. This does not apply to anyone installing for the first time.
+If your world was created with the earlier version of this system, installed from `advachiel/stonetop`, it is pointed at a package ID that has since changed and will not move across on its own. Install this system alongside the old one and follow [MIGRATION.md](https://github.com/advachiel/stonetop-pwd/blob/main/MIGRATION.md). Your world, its name, its folder and everything inside it stay where they are. This does not apply to anyone installing for the first time.
 
 ## Recommended modules
 

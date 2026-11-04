@@ -54,11 +54,11 @@ That is **Restore Open Windows on Reload**, a per-browser setting on your Prefer
 
 ## Moving from the old package
 
-If your world was made with the older release installed from `PrinceWitherdick/stonetop`, follow [MIGRATION.md](https://github.com/PrinceWitherdick/stonetop-pwd/blob/main/MIGRATION.md). A one-button migration assistant opens by itself in worlds that still need it.
+If your world was made with the older release installed from `advachiel/stonetop`, follow [MIGRATION.md](https://github.com/advachiel/stonetop-pwd/blob/main/MIGRATION.md). A one-button migration assistant opens by itself in worlds that still need it.
 
 ## Reporting a problem
 
-Open an issue at [github.com/PrinceWitherdick/stonetop-pwd/issues](https://github.com/PrinceWitherdick/stonetop-pwd/issues). Include your Foundry version, the system version, other active modules, and the output of `game.stonetop.bootReport()` if the system failed to start.
+Open an issue at [github.com/advachiel/stonetop-pwd/issues](https://github.com/advachiel/stonetop-pwd/issues). Include your Foundry version, the system version, other active modules, and the output of `game.stonetop.bootReport()` if the system failed to start.
 
 ## See also
 - [Hidden Tricks](Hidden-Tricks)

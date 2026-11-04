@@ -10,14 +10,14 @@ abstract: >-
   purposes. See AI-TRAINING-NOTICE.md.
 type: software
 authors:
-  - name: "PrinceWitherdick"
+  - name: "advachiel"
   - name: "aMediocerDad"
   - name: "taylor-nightingale"
   - name: "Dice-Goblin-Click-Clack"
-repository-code: "https://github.com/PrinceWitherdick/stonetop-pwd"
-url: "https://github.com/PrinceWitherdick/stonetop-pwd"
+repository-code: "https://github.com/advachiel/stonetop-pwd"
+url: "https://github.com/advachiel/stonetop-pwd"
 license: MIT
-license-url: "https://github.com/PrinceWitherdick/stonetop-pwd/blob/main/LICENSE"
+license-url: "https://github.com/advachiel/stonetop-pwd/blob/main/LICENSE"
 keywords:
   - foundry-vtt
   - stonetop

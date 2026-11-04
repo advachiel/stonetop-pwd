@@ -21,7 +21,7 @@ Pick a time when no players are logged in, then:
    system, and click Install:
 
    ```
-   https://github.com/PrinceWitherdick/stonetop-pwd/releases/latest/download/system.json
+   https://github.com/advachiel/stonetop-pwd/releases/latest/download/system.json
    ```
 
    You will now have two Stonetop tiles. That is expected.
@@ -60,7 +60,7 @@ one by mistake, nothing is lost: reinstall it from this manifest URL and the wor
 straight back.
 
 ```
-https://github.com/PrinceWitherdick/stonetop/releases/latest/download/system.json
+https://github.com/advachiel/stonetop/releases/latest/download/system.json
 ```
 
 That is the **old** system, the one this page is helping you leave. It is here only so a
@@ -114,7 +114,7 @@ your tier has them, and rehearse on a clone if you can.
 1. Install the renamed system on your Forge account **first**, and confirm it is there:
 
    ```
-   https://github.com/PrinceWitherdick/stonetop-pwd/releases/latest/download/system.json
+   https://github.com/advachiel/stonetop-pwd/releases/latest/download/system.json
    ```
 
    A world pointed at a system that is not installed will not launch, and on Game Manager
@@ -186,7 +186,7 @@ into what they already downloaded, so it must keep serving the bridge, while eve
 needs a URL that serves the current system and keeps updating. One repository cannot do
 both without pinning somebody to a frozen version.
 
-| | `PrinceWitherdick/stonetop` | `PrinceWitherdick/stonetop-pwd` |
+| | `advachiel/stonetop` | `advachiel/stonetop-pwd` |
 |---|---|---|
 | id | `stonetop_pwd` | `stonetop-pwd` |
 | `releases/latest` | the bridge, frozen | current system |

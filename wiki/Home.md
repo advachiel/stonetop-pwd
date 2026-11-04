@@ -50,4 +50,4 @@ This wiki covers what the system does and how to use it, including a lot that's 
 
 ## Credits
 
-Stonetop is written by Jeremy Strandberg, illustrated by Lucie Arnoux, arranged by Jason Lutes, and published by [Lampblack & Brimstone](https://lampblackandbrimstone.com). This system is unofficial and not affiliated with or endorsed by them. Its game text is used under CC BY-SA 4.0; see the [README](https://github.com/PrinceWitherdick/stonetop-pwd#credits--attribution) for full credits and licenses. Found a problem? [Open an issue](https://github.com/PrinceWitherdick/stonetop-pwd/issues).
+Stonetop is written by Jeremy Strandberg, illustrated by Lucie Arnoux, arranged by Jason Lutes, and published by [Lampblack & Brimstone](https://lampblackandbrimstone.com). This system is unofficial and not affiliated with or endorsed by them. Its game text is used under CC BY-SA 4.0; see the [README](https://github.com/advachiel/stonetop-pwd#credits--attribution) for full credits and licenses. Found a problem? [Open an issue](https://github.com/advachiel/stonetop-pwd/issues).

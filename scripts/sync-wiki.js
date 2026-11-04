@@ -15,7 +15,7 @@ import { fileURLToPath } from "url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const WIKI = path.join(ROOT, "wiki");
-const REMOTE = "https://github.com/PrinceWitherdick/stonetop-pwd.wiki.git";
+const REMOTE = "https://github.com/advachiel/stonetop-pwd.wiki.git";
 const CLONE = process.env.STONETOP_WIKI_CLONE ?? "z:/tmp/stonetop-pwd.wiki";
 const SPECIAL = new Set(["Home", "_Sidebar", "_Footer"]);
 

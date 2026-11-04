@@ -105,7 +105,7 @@ describe("system.json declares what the tree actually contains", () => {
 		// at anything but this repository's latest release silently hands users someone else's
 		// package, which is the failure the release workflow's make_latest gating exists for.
 		expect(manifest.manifest).toBe(
-			"https://github.com/PrinceWitherdick/stonetop-pwd/releases/latest/download/system.json",
+			"https://github.com/advachiel/stonetop-pwd/releases/latest/download/system.json",
 		);
 	});
 });

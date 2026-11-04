@@ -4,7 +4,7 @@
 // By default it writes to the project root. Pass one or more `--out <dir>` to
 // also emit into other checkouts (e.g. the user-site Pages repo that actually
 // serves these at a host root):
-//   node scripts/gen-ai-signals.js --out z:/tmp/princewitherdick.github.io
+//   node scripts/gen-ai-signals.js --out z:/tmp/advachiel.github.io
 //
 // robots.txt only takes effect when served from the ROOT of a host you control;
 // in this repo it is a documented signal that travels with the release. See
@@ -15,7 +15,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const CONTACT = "https://github.com/PrinceWitherdick/stonetop-pwd/issues";
+const CONTACT = "https://github.com/advachiel/stonetop-pwd/issues";
 
 async function loadBots() {
 	const raw = await fs.readFile(path.join(ROOT, "scripts", "ai-bots.txt"), "utf8");
